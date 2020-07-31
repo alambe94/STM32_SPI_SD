@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,7 +100,7 @@ int main(void)
   res = f_mount(&USERFatFS, (TCHAR const*) USERPath, 0);
 
   /*only first time*/
-  res = f_mkfs((TCHAR const*) USERPath, FM_ANY, 0, buffer, sizeof(buffer));
+  //res = f_mkfs((TCHAR const*) USERPath, FM_ANY, 0, buffer, sizeof(buffer));
   res = f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE);
   res = f_write(&USERFile, tx, sizeof(tx), &cnt);
   res = f_close(&USERFile);
@@ -109,6 +109,22 @@ int main(void)
   res = f_read(&USERFile, rx, sizeof(rx), &cnt);
 
   res = f_close(&USERFile);
+
+  FATFS *fs;
+  DWORD fre_clust, fre_sect, tot_sect;
+
+
+  /* Get volume information and free clusters of drive 1 */
+  res = f_getfree(USERPath, &fre_clust, &fs);
+
+  /* Get total sectors and free sectors */
+  tot_sect = (fs->n_fatent - 2) * fs->csize;
+  fre_sect = fre_clust * fs->csize;
+
+  /* Print the free space (assuming 512 bytes/sector) */
+  char temp_buffer[100];
+  sprintf(temp_buffer, "%10lu KiB total drive space.\n%10lu KiB available.\n", tot_sect / 2, fre_sect / 2);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

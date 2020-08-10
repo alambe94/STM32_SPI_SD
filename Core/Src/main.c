@@ -101,13 +101,43 @@ int main(void)
 
   /*only first time*/
   //res = f_mkfs((TCHAR const*) USERPath, FM_ANY, 0, buffer, sizeof(buffer));
-  res = f_open(&USERFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_open(&USERFile, "stm32.txt", FA_CREATE_ALWAYS | FA_WRITE);
   res = f_write(&USERFile, tx, sizeof(tx), &cnt);
   res = f_close(&USERFile);
 
-  res = f_open(&USERFile, "STM32.TXT", FA_READ);
-  res = f_read(&USERFile, rx, sizeof(rx), &cnt);
+  res = f_open(&USERFile, "stm32_1.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
 
+  res = f_open(&USERFile, "stm32_2.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+  res = f_open(&USERFile, "stm32_3.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+  res = f_open(&USERFile, "STM32_4.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+  res = f_open(&USERFile, "stm32_5.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+  res = f_open(&USERFile, "stm32_6.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+  res = f_open(&USERFile, "stm32_7.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  res = f_write(&USERFile, tx, sizeof(tx), &cnt);
+  res = f_close(&USERFile);
+
+
+
+  ///////////////////////////////////////////////
+  res = f_open(&USERFile, "stm32_2.txt", FA_READ);
+  res = f_read(&USERFile, rx, sizeof(rx), &cnt);
   res = f_close(&USERFile);
 
   FATFS *fs;

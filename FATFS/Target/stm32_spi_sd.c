@@ -363,10 +363,11 @@ uint8_t BSP_SD_ReadBlocks(uint32_t *pData, uint32_t ReadAddr, uint32_t NumOfBloc
 
   //ptr = malloc(sizeof(uint8_t)*BlockSize);
   ptr = Working_Buffer;
-  if( ptr == NULL )
-  {
-     goto error;
-  }
+  // if( ptr == NULL )
+  // {
+  //    goto error;
+  // }
+
   memset(ptr, SD_DUMMY_BYTE, sizeof(uint8_t)*BlockSize);
 
   /* Initialize the address */
@@ -449,10 +450,10 @@ uint8_t BSP_SD_WriteBlocks(uint32_t *pData, uint32_t WriteAddr, uint32_t NumOfBl
 
   //ptr = malloc(sizeof(uint8_t)*BlockSize);
   ptr = Working_Buffer;
-  if (ptr == NULL)
-  {
-    goto error;
-  }
+  // if (ptr == NULL)
+  // {
+  //   goto error;
+  // }
 
   /* Initialize the address */
   addr = (WriteAddr * ((flag_SDHC == 1) ? 1 : BlockSize));

@@ -4,10 +4,10 @@
 
 #define SD_DUMMY_BYTE 0xFF
 
-#define SD_CS_LOW() HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET)
-#define SD_CS_HIGH() HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET)
+#define SD_CS_LOW() HAL_GPIO_WritePin(CS_SD_GPIO_Port, CS_SD_Pin, GPIO_PIN_RESET)
+#define SD_CS_HIGH() HAL_GPIO_WritePin(CS_SD_GPIO_Port, CS_SD_Pin, GPIO_PIN_SET)
 
-uint32_t SpixTimeout = 1000; /*<! Value of Timeout when SPI communication fails */
+uint32_t SpixTimeout = 10000; /*<! Value of Timeout when SPI communication fails */
 
 /**
   * @brief  SPI error treatment function.

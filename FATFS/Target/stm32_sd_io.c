@@ -52,6 +52,7 @@ void SD_IO_CSState(uint8_t state)
 
 void SD_IO_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t DataLength)
 {
+#if 0
 	HAL_StatusTypeDef status = HAL_OK;
 
 	status = HAL_SPI_TransmitReceive(&hspi1, (uint8_t *)DataIn, DataOut, DataLength, SpixTimeout);
@@ -62,6 +63,26 @@ void SD_IO_WriteReadData(const uint8_t *DataIn, uint8_t *DataOut, uint16_t DataL
 		/* Execute user timeout callback */
 		SPIx_Error();
 	}
+#else
+	for (uint32_t i = 0; i < DataLength; i++)
+	{
+		uint32_t tick_now = HAL_GetTick();
+		uint32_t tick_timeout = tick_now + 10;
+
+		hspi1.Instance->DR = *DataIn++;
+		while (__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_TXE) == RESET && (tick_now <= tick_timeout))
+		{
+			tick_now = HAL_GetTick();
+		}
+
+		tick_timeout = tick_now + 10;
+		while (__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_RXNE) == RESET && (tick_now <= tick_timeout))
+		{
+			tick_now = HAL_GetTick();
+		}
+		*DataOut++ = hspi1.Instance->DR;
+	}
+#endif
 }
 
 uint8_t SD_IO_WriteByte(uint8_t Data)

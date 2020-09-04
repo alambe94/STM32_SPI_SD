@@ -155,6 +155,8 @@ int main(void)
   char temp_buffer[100];
   sprintf(temp_buffer, "%10lu KiB total drive space.\n%10lu KiB available.\n", tot_sect / 2, fre_sect / 2);
 
+  (void)res;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
